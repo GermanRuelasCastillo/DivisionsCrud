@@ -1,7 +1,32 @@
+#dashboard{
+    background: #E5E5E5;
+}
 .container{
     padding: 0px 30px 30px 30px;
 }
-.bodyOrganization{
-    padding: 0px 30px 30px 30px !important;
-    /* background: #E5E5E5; */
+.tableDivision{
+    padding: 0px 80px 0px 30px !important;
+    margin-left: 30px !important;
 }
+.btn-mandu{
+    border-radius: 4px !important;
+    margin-right: 5px;
+}
+.divisionsTab,.ant-tabs-nav{
+    background-color: white !important;
+}
+.menu-title{
+    padding: 30px !important;
+    background-color: white !important;
+}
+.ant-table-thead tr .ant-table-cell{
+    background-color: #E5E5E5 !important;
+}
+
+.mb-40{
+    margin-bottom: 40px;
+}
+.mt-20{
+    margin-top: 20px;
+}
+

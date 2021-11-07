@@ -1,5 +1,5 @@
 import {useEffect,useState} from 'react';
-import { Table,Typography,Button,Menu } from 'antd';
+import { Table,Typography,Button,Menu,Tabs,Radio,Select,Input,Row,Col } from 'antd';
 import { getDivisions } from '../utils/Http';
 import store from '../store';
 import { useSelector } from 'react-redux';
@@ -17,9 +17,9 @@ function castFilter(array) {
     return newArray;
 }
 
+
 function Body() {
      // FUNCTIONS
-
     useEffect(() => {
         store.dispatch(getDivisions())
     }, []);
@@ -86,31 +86,62 @@ function Body() {
     const divisions = useSelector((state) => state.division.divisions);
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(12);
+    const [q,setQ] = useState('');
+    const { loading, selectedRowKeys } =  useSelector((state) => state.division.divisions);
+    const rowSelection = {
+        selectedRowKeys,
+      };
+
     return  (
         <>
-        <Menu mode="horizontal"
-            className="d-flex align-items-center custom-navigation">
-            <Menu.Item key="title">
+        <Row className="menu-title">
+            <Col span={8}>
                 <Typography.Title level={3}>Organización</Typography.Title>
-            </Menu.Item>
-            <Menu.Item key="options" className="auto">
-                <Button type="primary" icon={<PlusOutlined />} size={'large'} />
-                <Button icon={<UploadOutlined />} size={'large'} />
-                <Button icon={<DownloadOutlined />} size={'large'} />
-            </Menu.Item>
-        </Menu>
+            </Col>
+            <Col span={4} offset={12}>
+                <Button className="btn-mandu" type="primary" icon={<PlusOutlined />} size={'large'} />
+                <Button className="btn-mandu" icon={<UploadOutlined />} size={'large'} />
+                <Button className="btn-mandu" icon={<DownloadOutlined />} size={'large'} />
+            </Col>
+        </Row>
 
-        <Table
-            key="divisions"
-            columns={ columns }
-            dataSource = { divisions }
-            pagination={{ divisions: divisions.length,current: page, pageSize: pageSize,onChange:(page,pageSize) => {
-                setPage(page);
-                setPageSize(pageSize);
-            } }}
+        <Tabs defaultActiveKey="1" activeKey="1">
+            <Tabs.TabPane tab="Divisiones" key="1" className="tableDivision">
+                <Row className="mb-40 mt-20">
+                    <Col className="gutter-row" span={8}>
+                        <Radio.Group value={'listado'}>
+                            <Radio.Button value="listado">Listado</Radio.Button>
+                            <Radio.Button value="arbol">Árbol</Radio.Button>
+                        </Radio.Group>
+                    </Col>
+                    <Col className="gutter-row" span={4} offset={12} xs={{ offset:8 }}>
+                        <Select placeholder="Columnas" optionFilterProp="children" style={{ width: 153,height:32 }}>
+                            {columns.map((column, key) => (
+                                <Select.Option value={column.key} key={key}>
+                                {column.title}
+                                </Select.Option>
+                            ))}
+                        </Select>
+                        <Input.Search placeholder="Buscar" value={q} onChange={(e) => setQ(e.target.value)} style={{ width: 200,height:32 }} />
+                    </Col>
+                </Row>
 
-            bordered
-        />
+                <Table
+                    columns={ columns }
+                    dataSource = { divisions }
+                    rowSelection={rowSelection}
+                    pagination={{ divisions: divisions.length,current: page, pageSize: pageSize,onChange:(page,pageSize) => {
+                        setPage(page);
+                        setPageSize(pageSize);
+                    } }}
+                    bordered
+                />
+            </Tabs.TabPane>
+            <Tabs.TabPane tab="Colaboradores" key="2">
+
+            </Tabs.TabPane>
+        </Tabs>
+
         </>
     )
 

@@ -16,8 +16,7 @@ function Dashboard(props) {
                     <Navbar />
                 </Col>
             </Row>
-            <br/>
-            <div className="bodyOrganization"><Body/></div>
+            <Body/>
         </Provider>
         </>
     );
