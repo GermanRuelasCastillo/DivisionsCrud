@@ -1,6 +1,7 @@
 .container{
     padding: 0px 30px 30px 30px;
 }
-body{
-    background: #E5E5E5;
+.bodyOrganization{
+    padding: 0px 30px 30px 30px !important;
+    /* background: #E5E5E5; */
 }

@@ -21,7 +21,7 @@ function Navbar(props) {
         <Header className="headerTop">
             <Menu
                 mode="horizontal"
-                className="d-flex align-items-center custom-navigation">
+                className="d-flex align-items-center custom-navigation menu-header">
                 {/* Logo Item */}
                 <Menu.Item key="logo" className="brand-logo">
                     <Link to="/">

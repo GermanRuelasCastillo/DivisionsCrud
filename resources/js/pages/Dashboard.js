@@ -17,9 +17,7 @@ function Dashboard(props) {
                 </Col>
             </Row>
             <br/>
-            <div className="container">
-               <Body/>
-            </div>
+            <div className="bodyOrganization"><Body/></div>
         </Provider>
         </>
     );

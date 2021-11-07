@@ -1,8 +1,9 @@
 import {useEffect,useState} from 'react';
-import { Table } from 'antd';
+import { Table,Typography,Button,Menu } from 'antd';
 import { getDivisions } from '../utils/Http';
 import store from '../store';
 import { useSelector } from 'react-redux';
+import { PlusCircleFilled,PlusOutlined,UploadOutlined,DownloadOutlined } from '@ant-design/icons';
 
 
 function castFilter(array) {
@@ -62,7 +63,13 @@ function Body() {
           dataIndex: 'subdivisions',
           key: 'subdivisiones',
           render: (subdivisions) => {
-            return <p>{subdivisions.length}</p>
+            return (<>
+                <span>
+                    <span> {subdivisions.length}</span>
+                    {subdivisions.length > 0 ? <PlusCircleFilled className="downIcon" style={{ fontSize: '14px', color: 'green' }}/> : null}
+                </span>
+            </>);
+
           },
           onFilter: (value, val) => val.subdivisions.length === value,
           sorter: (a, b) => a.subdivisions.length - b.subdivisions.length,
@@ -81,16 +88,29 @@ function Body() {
     const [pageSize, setPageSize] = useState(12);
     return  (
         <>
-            <Table
-                key="divisions"
-                columns={ columns }
-                pagination={{ divisions: divisions.length,current: page, pageSize: pageSize, onChange:(page,pageSize) => {
-                    setPage(page);
-                    setPageSize(pageSize);
-                } }}
-                dataSource = { divisions }
-                bordered
-            />
+        <Menu mode="horizontal"
+            className="d-flex align-items-center custom-navigation">
+            <Menu.Item key="title">
+                <Typography.Title level={3}>Organización</Typography.Title>
+            </Menu.Item>
+            <Menu.Item key="options" className="auto">
+                <Button type="primary" icon={<PlusOutlined />} size={'large'} />
+                <Button icon={<UploadOutlined />} size={'large'} />
+                <Button icon={<DownloadOutlined />} size={'large'} />
+            </Menu.Item>
+        </Menu>
+
+        <Table
+            key="divisions"
+            columns={ columns }
+            dataSource = { divisions }
+            pagination={{ divisions: divisions.length,current: page, pageSize: pageSize,onChange:(page,pageSize) => {
+                setPage(page);
+                setPageSize(pageSize);
+            } }}
+
+            bordered
+        />
         </>
     )
 
