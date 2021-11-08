@@ -6,6 +6,7 @@ use App\Models\Division;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
 
+
 class DivisionSeeder extends Seeder
 {
     /**
